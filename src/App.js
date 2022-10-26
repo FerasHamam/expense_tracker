@@ -1,7 +1,8 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import Details from "./components/Details/Details";
-import "./styles.css";
+import Main from "./components/Main/Main";
+import "./App.css";
 
 const App = () => {
   return (
@@ -11,15 +12,16 @@ const App = () => {
         direction="row"
         alignItems="center"
         justifyContent="center"
-        className="container"
+        spacing={2}
+        mt={20}
       >
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={3.5}>
           <Details title="Income" />
         </Grid>
-        <Grid item xs={12} sm={3}>
-          Main
-        </Grid>
         <Grid item xs={12} sm={4}>
+          <Main />
+        </Grid>
+        <Grid item xs={12} sm={3.5}>
           <Details title="Expenses" />
         </Grid>
       </Grid>
