@@ -9,7 +9,7 @@ const Appbar = () => {
   const { mode, changeTheme } = useTheme();
   console.log(changeTheme);
   return (
-    <Box sx={{ flexGrow: 1, width: "100vw" }} mb={10}>
+    <Box sx={{ flexGrow: 1, width: "100vw" }}>
       <AppBar position="static" sx={{ bgcolor: "primary.main" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

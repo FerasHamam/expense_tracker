@@ -12,6 +12,7 @@ const App = () => {
         container
         height="100vh"
         sx={{ bgcolor: "background.default" }}
+        spacing={2}
       >
         <Grid item sm={12}>
           <Appbar />

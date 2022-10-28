@@ -18,24 +18,39 @@ import {
 } from "../../../constants/constants";
 import formatDate from "../../../utils/formatDate";
 const initialFormData = {
-  type: types[0],
+  type: "",
   category: "",
-  amount: 0,
+  amount: "",
   date: new Date(),
+};
+const initialFormError = {
+  type: false,
+  category: false,
+  amount: false,
+  date: false,
 };
 const Form = () => {
   const [formData, setFormData] = useState(initialFormData);
+  const [formError, setFormError] = useState(initialFormError);
   const { addTransaction } = useExpenseTrackerContext();
-  console.log(formData);
   const onCreateTransaction = () => {
+    if (
+      formError.amount ||
+      formError.category ||
+      formError.date ||
+      formError.type
+    )
+      return;
     addTransaction({
       ...formData,
       amount: Number(formData.amount),
       id: uuidv4(),
       date: formatDate(formData.date),
     });
-    setFormData({ ...initialFormData });
+    setFormData(initialFormData);
+    setFormError(initialFormError);
   };
+
   return (
     <div>
       <Grid container direction="row" align="center" spacing={2}>
@@ -50,9 +65,16 @@ const Form = () => {
               autoWidth
               color="secondary"
               value={formData.type}
-              onChange={(event) =>
-                setFormData({ ...formData, type: event.target.value })
-              }
+              error={formError.type}
+              onChange={(event) => {
+                const value = event.target.value;
+                if (value === null) {
+                  setFormError({ ...formError, type: true });
+                  return;
+                }
+                if (formError.type) setFormError({ ...formError, type: false });
+                setFormData({ ...formData, type: value });
+              }}
             >
               {types.map((type) => (
                 <MenuItem key={type} value={type}>
@@ -70,8 +92,18 @@ const Form = () => {
               autoWidth
               color="secondary"
               value={formData.category}
+              error={formError.category}
               onChange={(event) => {
-                setFormData({ ...formData, category: event.target.value });
+                const value = event.target.value;
+                if (value === null) {
+                  setFormError({ ...formError, category: true });
+                  return;
+                } else if (formError.category)
+                  setFormError({
+                    ...formError,
+                    category: false,
+                  });
+                setFormData({ ...formData, category: value });
               }}
             >
               {formData.type === "Income"
@@ -95,10 +127,20 @@ const Form = () => {
             fullWidth
             color="secondary"
             value={formData.amount}
+            error={formError.amount}
             inputProps={{ min: 0 }}
-            onChange={(event) =>
-              setFormData({ ...formData, amount: event.target.value })
-            }
+            onChange={(event) => {
+              let value = event.target.value;
+              if (value === null || Number(value) < 0) {
+                setFormError({ ...formError, amount: true });
+                value = 0;
+              } else if (formError.amount)
+                setFormError({
+                  ...formError,
+                  amount: false,
+                });
+              setFormData({ ...formData, amount: value });
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={6}>
@@ -110,9 +152,18 @@ const Form = () => {
             InputLabelProps={{ shrink: true }}
             inputProps={{ max: new Date() }}
             value={formData.date}
-            onChange={(event) =>
-              setFormData({ ...formData, date: event.target.value })
-            }
+            error={formError.date}
+            onChange={(event) => {
+              const value = event.target.value;
+              if (value === null || value.length === 0 || value === "") {
+                setFormError({ ...formError, date: true });
+              } else if (formError.date)
+                setFormError({
+                  ...formError,
+                  date: false,
+                });
+              setFormData({ ...formData, date: value });
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12}>
