@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
-import "./Details.css";
 
 const Details = ({ title }) => {
   const borderC = title === "Income" ? "secondary.main" : "error.main";
@@ -11,6 +10,7 @@ const Details = ({ title }) => {
           borderBottom: 5,
           borderColor: borderC,
           backgroundColor: "primary.main",
+          margin: "0 3vw",
         }}
       >
         <CardHeader title={title} />

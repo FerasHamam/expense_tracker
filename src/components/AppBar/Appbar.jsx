@@ -3,13 +3,13 @@ import LightModeTwoToneIcon from "@mui/icons-material/LightModeTwoTone";
 import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
 import React from "react";
 import { Box } from "@mui/system";
-import { useTheme, useUpdateTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../context/Context";
 
 const Appbar = () => {
-  const mode = useTheme();
-  const changeTheme = useUpdateTheme();
+  const { mode, changeTheme } = useTheme();
+  console.log(changeTheme);
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, width: "100vw" }} mb={10}>
       <AppBar position="static" sx={{ bgcolor: "primary.main" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

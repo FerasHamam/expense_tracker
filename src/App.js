@@ -3,13 +3,16 @@ import Details from "./components/Details/Details";
 import Main from "./components/Main/Main";
 import "./App.css";
 import Appbar from "./components/AppBar/Appbar";
-import ThemeContextProvider from "./context/ThemeContext";
 
 const App = () => {
   return (
-    <ThemeContextProvider>
+    <>
       <CssBaseline />
-      <Grid container height="100vh" sx={{ bgcolor: "background.default" }}>
+      <Grid
+        container
+        height="100vh"
+        sx={{ bgcolor: "background.default" }}
+      >
         <Grid item sm={12}>
           <Appbar />
         </Grid>
@@ -21,19 +24,19 @@ const App = () => {
             justifyContent="center"
             spacing={2}
           >
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={4}>
               <Details title="Income" />
             </Grid>
             <Grid item xs={12} sm={4}>
               <Main />
             </Grid>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={12} sm={4}>
               <Details title="Expenses" />
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </ThemeContextProvider>
+    </>
   );
 };
 

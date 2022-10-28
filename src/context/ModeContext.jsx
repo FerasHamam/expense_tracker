@@ -1,18 +1,7 @@
-import { colors } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/system";
-import { useState, createContext, useContext, useMemo } from "react";
-
-export const ThemeContext = createContext();
-export const ThemeUpdateContext = createContext();
-
-export function useTheme() {
-  return useContext(ThemeContext);
-}
-
-export function useUpdateTheme() {
-  return useContext(ThemeUpdateContext);
-}
+import { useState, useMemo } from "react";
+import { ThemeContext } from "./Context";
 
 export default function ThemeContextProvider({ children }) {
   const [mode, setMode] = useState("light");
@@ -53,10 +42,10 @@ export default function ThemeContextProvider({ children }) {
   };
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   return (
-    <ThemeContext.Provider value={mode}>
-      <ThemeUpdateContext.Provider value={onChangeModeHandler}>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
-      </ThemeUpdateContext.Provider>
+    <ThemeContext.Provider
+      value={{ mode: mode, changeTheme: onChangeModeHandler }}
+    >
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );
 }
