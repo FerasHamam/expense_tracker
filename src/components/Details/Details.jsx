@@ -3,10 +3,16 @@ import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import "./Details.css";
 
 const Details = ({ title }) => {
-  const cardClassName = title === "Income" ? "income" : "expenses";
+  const borderC = title === "Income" ? "secondary.main" : "error.main";
   return (
     <div>
-      <Card className={cardClassName}>
+      <Card
+        sx={{
+          borderBottom: 5,
+          borderColor: borderC,
+          backgroundColor: "primary.main",
+        }}
+      >
         <CardHeader title={title} />
         <CardContent>
           <Typography align="center" variant="h2"></Typography>

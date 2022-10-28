@@ -1,5 +1,5 @@
 import {
-    Button,
+  Button,
   FormControl,
   Grid,
   InputLabel,
@@ -18,26 +18,38 @@ const Form = () => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel>Type</InputLabel>
-            <Select variant="standard" autoWidth>
+            <InputLabel color="secondary">Type</InputLabel>
+            <Select variant="standard" autoWidth color="secondary">
               <MenuItem>Business</MenuItem>
             </Select>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel>Category</InputLabel>
-            <Select variant="standard" autoWidth></Select>
+            <InputLabel color="secondary">Category</InputLabel>
+            <Select variant="standard" autoWidth color="secondary"></Select>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
-          <TextField label="Amount" type="number" fullWidth></TextField>
+          <TextField
+            label="Amount"
+            type="number"
+            fullWidth
+            color="secondary"
+          ></TextField>
         </Grid>
         <Grid item xs={6}>
-          <TextField label="Date" type="date" fullWidth></TextField>
+          <TextField
+            label="Date"
+            type="date"
+            fullWidth
+            color="secondary"
+          ></TextField>
         </Grid>
-              <Grid item xs={12}>
-                  <Button variant="outlined">CREATE</Button>
+        <Grid item xs={12}>
+          <Button variant="outlined" color="secondary">
+            CREATE
+          </Button>
         </Grid>
       </Grid>
     </div>
