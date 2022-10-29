@@ -17,11 +17,13 @@ import {
   incomeCategories,
 } from "../../../constants/constants";
 import formatDate from "../../../utils/formatDate";
+
 const initialFormData = {
   type: "",
   category: "",
   amount: "",
-  date: new Date(),
+  date: null,
+  touched: false,
 };
 const initialFormError = {
   type: false,
@@ -33,20 +35,25 @@ const Form = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [formError, setFormError] = useState(initialFormError);
   const { addTransaction } = useExpenseTrackerContext();
+
   const onCreateTransaction = () => {
-    if (
+    let formNotValid =
       formError.amount ||
       formError.category ||
       formError.date ||
-      formError.type
-    )
+      formError.type ||
+      !formData.touched;
+    if (formNotValid) {
+      setFormData((prevFormData) => ({ ...prevFormData, touched: true }));
       return;
+    }
     addTransaction({
       ...formData,
       amount: Number(formData.amount),
       id: uuidv4(),
       date: formatDate(formData.date),
     });
+
     setFormData(initialFormData);
     setFormError(initialFormError);
   };
@@ -73,7 +80,11 @@ const Form = () => {
                   return;
                 }
                 if (formError.type) setFormError({ ...formError, type: false });
-                setFormData({ ...formData, type: value });
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  type: value,
+                  touched: true,
+                }));
               }}
             >
               {types.map((type) => (
@@ -96,7 +107,7 @@ const Form = () => {
               onChange={(event) => {
                 const value = event.target.value;
                 if (value === null) {
-                  setFormError({ ...formError, category: true });
+                  setFormError({ ...formError, category: true, touched: true });
                   return;
                 } else if (formError.category)
                   setFormError({
@@ -132,7 +143,7 @@ const Form = () => {
             onChange={(event) => {
               let value = event.target.value;
               if (value === null || Number(value) < 0) {
-                setFormError({ ...formError, amount: true });
+                setFormError({ ...formError, amount: true, touched: true });
                 value = 0;
               } else if (formError.amount)
                 setFormError({
@@ -151,7 +162,7 @@ const Form = () => {
             color="secondary"
             InputLabelProps={{ shrink: true }}
             inputProps={{ max: new Date() }}
-            value={formData.date}
+            value={formData.date !== null ? formData.date : new Date()}
             error={formError.date}
             onChange={(event) => {
               const value = event.target.value;
@@ -162,7 +173,7 @@ const Form = () => {
                   ...formError,
                   date: false,
                 });
-              setFormData({ ...formData, date: value });
+              setFormData({ ...formData, date: value, touched: true });
             }}
           ></TextField>
         </Grid>
@@ -172,6 +183,13 @@ const Form = () => {
             color="secondary"
             fullWidth
             onClick={onCreateTransaction}
+            disabled={
+              !formData.touched ||
+              formData.amount.length < 1 ||
+              formData.category.length < 1 ||
+              formData.date === null ||
+              formData.type.length < 1
+            }
           >
             CREATE
           </Button>
