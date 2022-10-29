@@ -15,7 +15,7 @@ export default function ThemeContextProvider({ children }) {
               main: "#9C9EFE",
             },
             secondary: {
-              main: "#d6f54d",
+              main: "#2d7000",
             },
             background: {
               default: "#b7afc5",
@@ -28,7 +28,7 @@ export default function ThemeContextProvider({ children }) {
               main: "#493469",
             },
             secondary: {
-              main: "#fbc02d",
+              main: "#3ea320",
             },
             background: {
               default: "#333038",

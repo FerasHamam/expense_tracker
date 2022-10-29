@@ -1,28 +1,30 @@
 import React from "react";
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+import useTransactions from "../../hooks/useTransactions";
+import { Doughnut } from "react-chartjs-2";
+import "chart.js/auto";
 
 const Details = ({ title }) => {
+  console.log("oui " + title);
   const borderC = title === "Income" ? "secondary.main" : "error.main";
+  const { total, chartData } = useTransactions(title);
   return (
     <div>
       <Card
         sx={{
-          borderBottom: 5,
+          borderBottom: 6,
           borderColor: borderC,
           backgroundColor: "primary.main",
-          margin: "0 3vw",
         }}
       >
         <CardHeader title={title} />
         <CardContent>
-          <Typography align="center" variant="h2"></Typography>
-          <Typography variant="h5">100$</Typography>
+          <Typography variant="h5">Total: ${total}</Typography>
+          <Doughnut data={chartData} />
         </CardContent>
       </Card>
     </div>
   );
 };
-
-Details.propTypes = {};
 
 export default Details;

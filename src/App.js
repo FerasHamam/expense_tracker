@@ -25,14 +25,14 @@ const App = () => {
             justifyContent="center"
             spacing={2}
           >
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3.5}>
               <Details title="Income" />
             </Grid>
             <Grid item xs={12} sm={4}>
               <Main />
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <Details title="Expenses" />
+            <Grid item xs={12} sm={3.5}>
+              <Details title="Expense" />
             </Grid>
           </Grid>
         </Grid>

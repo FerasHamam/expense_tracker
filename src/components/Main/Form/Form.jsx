@@ -2,6 +2,7 @@ import {
   Button,
   FormControl,
   Grid,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
@@ -104,6 +105,7 @@ const Form = () => {
               color="secondary"
               value={formData.category}
               error={formError.category}
+              disabled={formData.type === ""}
               onChange={(event) => {
                 const value = event.target.value;
                 if (value === null) {
@@ -140,11 +142,13 @@ const Form = () => {
             value={formData.amount}
             error={formError.amount}
             helperText={
-              formError.amount === true
-                ? "Please enter a valid positive Amount "
-                : ""
+              formError.amount === true ? "Please enter positive Amount " : ""
             }
-            inputProps={{ min: 0 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+            }}
             onChange={(event) => {
               let value = event.target.value;
               if (value === null || Number(value) <= 0) {
@@ -169,9 +173,7 @@ const Form = () => {
             value={formData.date !== null ? formData.date : new Date()}
             error={formError.date}
             helperText={
-              formError.date === true
-                ? "Please enter a valid date"
-                : ""
+              formError.date === true ? "Please enter a valid date" : ""
             }
             onChange={(event) => {
               const value = event.target.value;

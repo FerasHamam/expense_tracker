@@ -7,7 +7,6 @@ import { useTheme } from "../../context/Context";
 
 const Appbar = () => {
   const { mode, changeTheme } = useTheme();
-  console.log(changeTheme);
   return (
     <Box sx={{ flexGrow: 1, width: "100vw" }}>
       <AppBar position="static" sx={{ bgcolor: "primary.main" }}>
