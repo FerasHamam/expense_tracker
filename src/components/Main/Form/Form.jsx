@@ -139,12 +139,16 @@ const Form = () => {
             color="secondary"
             value={formData.amount}
             error={formError.amount}
+            helperText={
+              formError.amount === true
+                ? "Please enter a valid positive Amount "
+                : ""
+            }
             inputProps={{ min: 0 }}
             onChange={(event) => {
               let value = event.target.value;
-              if (value === null || Number(value) < 0) {
+              if (value === null || Number(value) <= 0) {
                 setFormError({ ...formError, amount: true, touched: true });
-                value = 0;
               } else if (formError.amount)
                 setFormError({
                   ...formError,
@@ -164,6 +168,11 @@ const Form = () => {
             inputProps={{ max: new Date() }}
             value={formData.date !== null ? formData.date : new Date()}
             error={formError.date}
+            helperText={
+              formError.date === true
+                ? "Please enter a valid date"
+                : ""
+            }
             onChange={(event) => {
               const value = event.target.value;
               if (value === null || value.length === 0 || value === "") {
