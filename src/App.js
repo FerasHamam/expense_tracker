@@ -14,24 +14,25 @@ const App = () => {
         sx={{ bgcolor: "background.default" }}
         spacing={2}
       >
-        <Grid item sm={12}>
+        <Grid item xs={12}>
           <Appbar />
         </Grid>
-        <Grid item sm={12}>
+        <Grid item xs={12}>
           <Grid
             container
             direction="row"
             alignItems="center"
             justifyContent="center"
             spacing={2}
+            mb={5}
           >
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={10} md={3.5}>
               <Details title="Income" />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={11} md={4}>
               <Main />
             </Grid>
-            <Grid item xs={12} sm={3.5}>
+            <Grid item xs={10} md={3.5}>
               <Details title="Expense" />
             </Grid>
           </Grid>

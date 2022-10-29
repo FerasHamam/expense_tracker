@@ -20,7 +20,18 @@ const Details = ({ title }) => {
         <CardHeader title={title} />
         <CardContent>
           <Typography variant="h5">Total: ${total}</Typography>
-          <Doughnut data={chartData} />
+        </CardContent>
+        <CardContent>
+          {total > 0 && (
+            <Doughnut
+              data={chartData}
+              options={{
+                responsive: true,
+                maintainAspectRatio: true,
+              }}
+
+            />
+          )}
         </CardContent>
       </Card>
     </div>

@@ -8,7 +8,7 @@ import { useTheme } from "../../context/Context";
 const Appbar = () => {
   const { mode, changeTheme } = useTheme();
   return (
-    <Box sx={{ flexGrow: 1, width: "100vw" }}>
+    <Box sx={{ flexGrow: 1}}>
       <AppBar position="static" sx={{ bgcolor: "primary.main" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
