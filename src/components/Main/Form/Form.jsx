@@ -1,5 +1,7 @@
 import {
   Button,
+  colors,
+  Divider,
   FormControl,
   Grid,
   InputAdornment,
@@ -7,6 +9,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import { useState } from "react";
@@ -18,6 +21,8 @@ import {
   incomeCategories,
 } from "../../../constants/constants";
 import formatDate from "../../../utils/formatDate";
+import { useSpeechContext } from "@speechly/react-client";
+import { useEffect } from "react";
 
 const initialFormData = {
   type: "",
@@ -33,9 +38,14 @@ const initialFormError = {
   date: false,
 };
 const Form = () => {
+  const { segment } = useSpeechContext();
   const [formData, setFormData] = useState(initialFormData);
   const [formError, setFormError] = useState(initialFormError);
   const { addTransaction } = useExpenseTrackerContext();
+
+  useEffect(() => {
+    console.log(segment);
+  }, [segment]);
 
   const onCreateTransaction = () => {
     let formNotValid =
@@ -63,7 +73,14 @@ const Form = () => {
     <div>
       <Grid container direction="row" align="center" spacing={2}>
         <Grid item xs={12}>
-          ...
+          <Typography align="center" variant="subtitle2">
+            Ex: Add income for $100 in Category Salary for Monday
+          </Typography>
+          <Divider />
+          <Typography align="center" variant="subtitle2" color={colors.grey[600]}>
+            {segment &&
+              `${segment.words.map((w) => w.value).join(" ")}`}
+          </Typography>
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>

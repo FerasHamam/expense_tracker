@@ -1,11 +1,16 @@
 import React from "react";
-import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Typography,
+} from "@mui/material";
 import useTransactions from "../../hooks/useTransactions";
 import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
 
 const Details = ({ title }) => {
-  console.log("oui " + title);
   const borderC = title === "Income" ? "secondary.main" : "error.main";
   const { total, chartData } = useTransactions(title);
   return (
@@ -18,6 +23,8 @@ const Details = ({ title }) => {
         }}
       >
         <CardHeader title={title} />
+        <Divider />
+
         <CardContent>
           <Typography variant="h5">Total: ${total}</Typography>
         </CardContent>
@@ -29,7 +36,6 @@ const Details = ({ title }) => {
                 responsive: true,
                 maintainAspectRatio: true,
               }}
-
             />
           )}
         </CardContent>

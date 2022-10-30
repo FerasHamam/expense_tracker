@@ -24,7 +24,7 @@ const App = () => {
             alignItems="center"
             justifyContent="center"
             spacing={2}
-            mb={5}
+            mb={20}
           >
             <Grid item xs={10} md={3.5}>
               <Details title="Income" />
