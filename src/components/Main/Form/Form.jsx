@@ -1,28 +1,18 @@
-import {
-  Button,
-  colors,
-  Divider,
-  FormControl,
-  Grid,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React from "react";
-import { useState } from "react";
-import { useExpenseTrackerContext } from "../../../context/Context";
+import { colors, Divider, Grid, Typography } from "@mui/material";
+import { React, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
-  types,
   expenseCategories,
   incomeCategories,
 } from "../../../constants/constants";
+import { useExpenseTrackerContext } from "../../../context/Context";
 import formatDate from "../../../utils/formatDate";
 import { useSpeechContext } from "@speechly/react-client";
-import { useEffect } from "react";
+import CreateButton from "./CreateButton";
+import DatePicker from "./DatePicker";
+import AmountField from "./AmountField";
+import TypeSelect from "./TypeSelect";
+import CategorySelect from "./CategorySelect";
 
 const initialFormData = {
   type: "",
@@ -42,84 +32,13 @@ const Form = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [formError, setFormError] = useState(initialFormError);
   const { addTransaction } = useExpenseTrackerContext();
-
-  useEffect(() => {
-    if (segment && segment.isFinal) {
-      segment.entities.forEach((e) => {
-        switch (e.type) {
-          case "amount":
-            if (e.value === null || Number(e.value) <= 0) {
-              setFormError((prevFormError) => ({
-                ...prevFormError,
-                amount: true,
-              }));
-            } else {
-              setFormError((prevFormError) => ({
-                ...prevFormError,
-                amount: false,
-              }));
-            }
-            return setFormData((prevFormData) => ({
-              ...prevFormData,
-              amount: e.value,
-            }));
-          case "category":
-            let typeValue = null;
-            let categoryValue = null;
-            const category = `${e.value.charAt(0)}${e.value
-              .slice(1)
-              .toLowerCase()}`;
-            let index = expenseCategories.findIndex(
-              (expense) => expense.type === category
-            );
-            if (index >= 0) {
-              typeValue = "Expense";
-              categoryValue = expenseCategories[index];
-            } else {
-              index = incomeCategories.findIndex(
-                (income) => income.type === category
-              );
-              if (index >= 0) {
-                typeValue = "Income";
-                categoryValue = incomeCategories[index];
-              }
-            }
-            if (!typeValue || !categoryValue) {
-              setFormError((prevFormError) => ({
-                ...prevFormError,
-                type: true,
-                category: true,
-              }));
-            } else {
-              setFormError((prevFormError) => ({
-                ...prevFormError,
-                type: false,
-                category: false,
-              }));
-            }
-            return setFormData((prevFormData) => ({
-              ...prevFormData,
-              type: typeValue !== null ? typeValue : "",
-              category: categoryValue !== null ? categoryValue : {},
-            }));
-          case "date":
-            return setFormData((prevFormData) => ({
-              ...prevFormData,
-              date: e.value,
-            }));
-          default:
-            break;
-        }
-      });
-    }
-  }, [segment]);
-
-  const onCreateTransaction = () => {
+  console.log(formData);
+  const createTransaction = () => {
     let formNotValid =
       formError.amount ||
-      formError.category ||
       formError.date ||
       formError.type ||
+      formError.category ||
       !formData.touched;
     if (formNotValid) {
       setFormData((prevFormData) => ({ ...prevFormData, touched: true }));
@@ -132,13 +51,126 @@ const Form = () => {
       date: formatDate(formData.date),
     });
 
-    setFormData(initialFormData);
-    setFormError(initialFormError);
+    setFormData(() => initialFormData);
+    setFormError(() => initialFormError);
   };
+
+  const speechlyInputForm = (segment) => {
+    if (segment.intent.intent === "add_expense")
+      setFormData((prevFormData) => ({ ...prevFormData, type: "Expense" }));
+    else if (segment.intent.intent === "add_income")
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        type: "Income",
+      }));
+    else if (segment.intent.intent === "create_transaction")
+      createTransaction();
+    else if (segment.intent.intent === "cancel_transaction")
+      setFormData(initialFormData);
+    segment.entities.forEach((e) => {
+      switch (e.type) {
+        case "amount":
+          const amount = e.value;
+          if (
+            Number.isNaN(Number(amount)) ||
+            amount === "" ||
+            amount === null ||
+            Number(amount) <= 0
+          ) {
+            setFormError((prevFormError) => ({
+              ...prevFormError,
+              amount: true,
+            }));
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              amount: initialFormData.amount,
+            }));
+          } else {
+            setFormError((prevFormError) => ({
+              ...prevFormError,
+              amount: false,
+            }));
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              amount: Number(amount),
+            }));
+          }
+
+          break;
+        case "category":
+          const category = `${e.value.charAt(0)}${e.value
+            .slice(1)
+            .toLowerCase()}`;
+          if (incomeCategories.map((iC) => iC.type).includes(category)) {
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              type: "Income",
+              category: incomeCategories.find((iC) => iC.type === category),
+              touched: true,
+            }));
+            setFormError((prevFormError) => ({
+              ...prevFormError,
+              type: false,
+              category: false,
+            }));
+          } else if (
+            expenseCategories.map((eC) => eC.type).includes(category)
+          ) {
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              type: "Expense",
+              category: expenseCategories.find((iC) => iC.type === category),
+              touched: true,
+            }));
+            setFormError((prevFormError) => ({
+              ...prevFormError,
+              type: false,
+              category: false,
+            }));
+          }
+          break;
+        case "date":
+          const date = e.value;
+          if (
+            isNaN(Date.parse(date)) ||
+            date === null ||
+            date.length === 0 ||
+            date === ""
+          ) {
+            setFormError((prevFormError) => ({
+              ...prevFormError,
+              date: true,
+            }));
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              date: initialFormData.date,
+            }));
+          } else {
+            setFormError((prevFormError) => ({
+              ...prevFormError,
+              date: false,
+            }));
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              date: date,
+            }));
+          }
+          break;
+        default:
+          break;
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (segment && segment.isFinal) {
+      speechlyInputForm(segment);
+    } // eslint-disable-next-line
+  }, [segment]);
 
   return (
     <div>
-      <Grid container direction="row" align="center" spacing={2}>
+      <Grid container direction="row" align="center" spacing={4}>
         <Grid item xs={12}>
           <Typography align="center" variant="subtitle2">
             Ex: Add income for $100 in Category Salary for Monday
@@ -153,144 +185,43 @@ const Form = () => {
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <FormControl fullWidth>
-            <InputLabel color="secondary">Type</InputLabel>
-            <Select
-              variant="standard"
-              autoWidth
-              color="secondary"
-              value={formData.type}
-              error={formError.type}
-              onChange={(event) => {
-                const value = event.target.value;
-                if (value === null) {
-                  setFormError({ ...formError, type: true });
-                  return;
-                }
-                if (formError.type) setFormError({ ...formError, type: false });
-                setFormData((prevFormData) => ({
-                  ...prevFormData,
-                  type: value,
-                  touched: true,
-                }));
-              }}
-            >
-              {types.map((type) => (
-                <MenuItem key={type} value={type}>
-                  {type}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <TypeSelect
+            type={formData.type}
+            typeError={formError.type}
+            setFormData={setFormData}
+            setFormError={setFormError}
+          />
         </Grid>
         <Grid item xs={6}>
-          <FormControl fullWidth>
-            <InputLabel color="secondary">Category</InputLabel>
-            <Select
-              variant="standard"
-              autoWidth
-              color="secondary"
-              value={formData.category}
-              error={formError.category}
-              disabled={formData.type === ""}
-              onChange={(event) => {
-                const value = event.target.value;
-                if (value === null) {
-                  setFormError({ ...formError, category: true });
-                  return;
-                } else if (formError.category)
-                  setFormError({
-                    ...formError,
-                    category: false,
-                  });
-                setFormData({ ...formData, category: value });
-              }}
-            >
-              {formData.type === "Income"
-                ? incomeCategories.map((category) => (
-                    <MenuItem key={category.type} value={category}>
-                      {category.type}
-                    </MenuItem>
-                  ))
-                : expenseCategories.map((category) => (
-                    <MenuItem key={category.type} value={category}>
-                      {category.type}
-                    </MenuItem>
-                  ))}
-            </Select>
-          </FormControl>
+          <CategorySelect
+            category={formData.category}
+            categoryError={formError.category}
+            type={formData.type}
+            setFormData={setFormData}
+            setFormError={setFormError}
+          />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            label="Amount"
-            type="number"
-            fullWidth
-            color="secondary"
-            value={formData.amount}
-            error={formError.amount}
-            helperText={
-              formError.amount === true ? "Please enter positive Amount " : ""
-            }
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">$</InputAdornment>
-              ),
-            }}
-            onChange={(event) => {
-              let value = event.target.value;
-              if (value === null || Number(value) <= 0) {
-                setFormError({ ...formError, amount: true });
-              } else if (formError.amount)
-                setFormError({
-                  ...formError,
-                  amount: false,
-                });
-              setFormData({ ...formData, amount: value });
-            }}
-          ></TextField>
+          <AmountField
+            amount={formData.amount}
+            amountError={formError.amount}
+            setFormData={setFormData}
+            setFormError={setFormError}
+          />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            label="Date"
-            type="date"
-            fullWidth
-            color="secondary"
-            InputLabelProps={{ shrink: true }}
-            inputProps={{ max: new Date() }}
-            value={formData.date !== null ? formData.date : new Date()}
-            error={formError.date}
-            helperText={
-              formError.date === true ? "Please enter a valid date" : ""
-            }
-            onChange={(event) => {
-              const value = event.target.value;
-              if (value === null || value.length === 0 || value === "") {
-                setFormError({ ...formError, date: true });
-              } else if (formError.date)
-                setFormError({
-                  ...formError,
-                  date: false,
-                });
-              setFormData({ ...formData, date: value, touched: true });
-            }}
-          ></TextField>
+          <DatePicker
+            date={formData.date}
+            dateError={formError.date}
+            setFormData={setFormData}
+            setFormError={setFormError}
+          />
         </Grid>
         <Grid item xs={12}>
-          <Button
-            variant="outlined"
-            color="secondary"
-            fullWidth
-            onClick={onCreateTransaction}
-            disabled={
-              !formData.touched ||
-              formData.amount.length < 1 ||
-              formData.category.length < 1 ||
-              formData.date === null ||
-              formData.type.length < 1
-            }
-          >
-            CREATE
-          </Button>
+          <CreateButton
+            onCreateTransaction={createTransaction}
+            formData={formData}
+          />
         </Grid>
       </Grid>
     </div>
