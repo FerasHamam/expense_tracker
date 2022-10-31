@@ -44,7 +44,74 @@ const Form = () => {
   const { addTransaction } = useExpenseTrackerContext();
 
   useEffect(() => {
-    console.log(segment);
+    if (segment && segment.isFinal) {
+      segment.entities.forEach((e) => {
+        switch (e.type) {
+          case "amount":
+            if (e.value === null || Number(e.value) <= 0) {
+              setFormError((prevFormError) => ({
+                ...prevFormError,
+                amount: true,
+              }));
+            } else {
+              setFormError((prevFormError) => ({
+                ...prevFormError,
+                amount: false,
+              }));
+            }
+            return setFormData((prevFormData) => ({
+              ...prevFormData,
+              amount: e.value,
+            }));
+          case "category":
+            let typeValue = null;
+            let categoryValue = null;
+            const category = `${e.value.charAt(0)}${e.value
+              .slice(1)
+              .toLowerCase()}`;
+            let index = expenseCategories.findIndex(
+              (expense) => expense.type === category
+            );
+            if (index >= 0) {
+              typeValue = "Expense";
+              categoryValue = expenseCategories[index];
+            } else {
+              index = incomeCategories.findIndex(
+                (income) => income.type === category
+              );
+              if (index >= 0) {
+                typeValue = "Income";
+                categoryValue = incomeCategories[index];
+              }
+            }
+            if (!typeValue || !categoryValue) {
+              setFormError((prevFormError) => ({
+                ...prevFormError,
+                type: true,
+                category: true,
+              }));
+            } else {
+              setFormError((prevFormError) => ({
+                ...prevFormError,
+                type: false,
+                category: false,
+              }));
+            }
+            return setFormData((prevFormData) => ({
+              ...prevFormData,
+              type: typeValue !== null ? typeValue : "",
+              category: categoryValue !== null ? categoryValue : {},
+            }));
+          case "date":
+            return setFormData((prevFormData) => ({
+              ...prevFormData,
+              date: e.value,
+            }));
+          default:
+            break;
+        }
+      });
+    }
   }, [segment]);
 
   const onCreateTransaction = () => {
@@ -77,9 +144,12 @@ const Form = () => {
             Ex: Add income for $100 in Category Salary for Monday
           </Typography>
           <Divider />
-          <Typography align="center" variant="subtitle2" color={colors.grey[600]}>
-            {segment &&
-              `${segment.words.map((w) => w.value).join(" ")}`}
+          <Typography
+            align="center"
+            variant="subtitle2"
+            color={colors.grey[600]}
+          >
+            {segment && `${segment.words.map((w) => w.value).join(" ")}`}
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -126,7 +196,7 @@ const Form = () => {
               onChange={(event) => {
                 const value = event.target.value;
                 if (value === null) {
-                  setFormError({ ...formError, category: true, touched: true });
+                  setFormError({ ...formError, category: true });
                   return;
                 } else if (formError.category)
                   setFormError({
@@ -169,7 +239,7 @@ const Form = () => {
             onChange={(event) => {
               let value = event.target.value;
               if (value === null || Number(value) <= 0) {
-                setFormError({ ...formError, amount: true, touched: true });
+                setFormError({ ...formError, amount: true });
               } else if (formError.amount)
                 setFormError({
                   ...formError,
