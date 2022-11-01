@@ -19,7 +19,7 @@ const Main = () => {
       <PushToTalkButtonContainer>
         <PushToTalkButton />
       </PushToTalkButtonContainer>
-      <Card sx={{ backgroundColor: "primary.main", margin: "0px 3vw" }}>
+      <Card sx={{ backgroundColor: "primary.main", margin: "5vh 3vw" }}>
         <CardHeader title="Expenses Tracker" subheader="Powered By Speechly" />
         <Divider />
         <CardContent>

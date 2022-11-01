@@ -22,11 +22,12 @@ const Details = ({ title }) => {
           backgroundColor: "primary.main",
         }}
       >
-        <CardHeader title={title} />
+        <CardHeader title={title} titleTypographyProps={{ align: "center" }} />
         <Divider />
-
         <CardContent>
-          <Typography variant="h5">Total: ${total}</Typography>
+          <Typography variant="h6" align="center">
+            Total {title}: ${total}
+          </Typography>
         </CardContent>
         <CardContent>
           {total > 0 && (
