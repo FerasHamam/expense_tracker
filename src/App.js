@@ -26,13 +26,13 @@ const App = () => {
             spacing={2}
             mb={20}
           >
-            <Grid item xs={10} md={3.5}>
+            <Grid item xs={10} md={3}>
               <Details title="Income" />
             </Grid>
             <Grid item xs={11} md={4}>
               <Main />
             </Grid>
-            <Grid item xs={10} md={3.5}>
+            <Grid item xs={10} md={3}>
               <Details title="Expense" />
             </Grid>
           </Grid>
