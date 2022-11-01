@@ -45,7 +45,7 @@ const Form = () => {
     }
     addTransaction({
       ...formData,
-      amount: Number(formData.amount),
+      amount: Number(formData.amount).toFixed(2),
       id: uuidv4(),
       date: formatDate(formData.date),
     });
@@ -171,8 +171,8 @@ const Form = () => {
     <div>
       <Grid container direction="row" align="center" spacing={4}>
         <Grid item xs={12}>
-          <Typography align="center" variant="subtitle2">
-            Ex: Add income for $100 in Category Salary for Monday
+          <Typography align="left" variant= "overline">
+            Ex: Add (income | expense) for ($100) in Category (Salary) for (Monday).
           </Typography>
           <Divider />
           <Typography

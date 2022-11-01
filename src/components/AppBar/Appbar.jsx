@@ -4,26 +4,34 @@ import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
 import React from "react";
 import { Box } from "@mui/system";
 import { useTheme } from "../../context/Context";
+import { PushToTalkButton } from "@speechly/react-ui";
 
 const Appbar = () => {
   const { mode, changeTheme } = useTheme();
   return (
-    <Box sx={{ flexGrow: 1}}>
-      <AppBar position="static" sx={{ bgcolor: "primary.main" }}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Expenses Tracker
-          </Typography>
-          <IconButton onClick={changeTheme}>
-            {mode === "light" ? (
-              <DarkModeTwoToneIcon />
-            ) : (
-              <LightModeTwoToneIcon />
-            )}
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <AppBar position="relative" sx={{ bgcolor: "primary.main" , width:"100vw" }}>
+      <Toolbar>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 0.5 }}
+          m={0}
+          p={0}
+        >
+          Expenses Tracker
+        </Typography>
+        <Box sx={{ flexGrow: 0.6 }}>
+          <PushToTalkButton placement="center" size="45px" hint="" intro="" />
+        </Box>
+        <IconButton onClick={changeTheme}>
+          {mode === "light" ? (
+            <DarkModeTwoToneIcon />
+          ) : (
+            <LightModeTwoToneIcon />
+          )}
+        </IconButton>
+      </Toolbar>
+    </AppBar>
   );
 };
 

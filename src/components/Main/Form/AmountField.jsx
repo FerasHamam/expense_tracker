@@ -14,6 +14,19 @@ const AmountField = ({ amount, amountError, setFormData, setFormError }) => {
       InputProps={{
         startAdornment: <InputAdornment position="start">$</InputAdornment>,
       }}
+      sx={{
+        "& input[type=number]": {
+          MozAppearance: "textfield",
+        },
+        "& input[type=number]::-webkit-outer-spin-button": {
+          WebkitAppearance: "none",
+          margin: 0,
+        },
+        "& input[type=number]::-webkit-inner-spin-button": {
+          WebkitAppearance: "none",
+          margin: 0,
+        },
+      }}
       onChange={(event) => {
         let value = event.target.value;
         if (
@@ -28,7 +41,10 @@ const AmountField = ({ amount, amountError, setFormData, setFormError }) => {
             ...prevFormError,
             amount: false,
           }));
-        setFormData((prevFormData) => ({ ...prevFormData, amount: value }));
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          amount: Number(value) || "",
+        }));
       }}
     ></TextField>
   );

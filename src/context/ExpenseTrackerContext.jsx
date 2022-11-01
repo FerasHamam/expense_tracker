@@ -16,7 +16,6 @@ const expenseTrackerReducer = (state, action) => {
       transactions = [...state];
       transactions = transactions.filter((t) => t.id !== action.payload);
       localStorage.setItem("transactions", JSON.stringify(transactions));
-
       return transactions;
     default:
       return state;
@@ -37,9 +36,19 @@ const ExpenseTrackerProvider = ({ children }) => {
     dispatch({ type: "DELETE", payload: id });
   };
 
+  const balance = Number(
+    transactions.reduce(
+      (acc, t) =>
+        t.type === "Income"
+          ? (acc += Number(t.amount))
+          : (acc -= Number(t.amount)),
+      0
+    )
+  ).toFixed(2);
+
   return (
     <ExpenseTrackerContext.Provider
-      value={{ addTransaction, deleteTransaction, transactions }}
+      value={{ addTransaction, deleteTransaction, transactions, balance }}
     >
       {children}
     </ExpenseTrackerContext.Provider>

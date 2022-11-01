@@ -11,14 +11,14 @@ const useTransactions = (type) => {
   const { transactions } = useContext(ExpenseTrackerContext);
   const transactionsPerType = transactions.filter((t) => t.type === type);
   const categories = type === "Income" ? incomeCategories : expenseCategories;
-  const total = transactionsPerType.reduce((acc, t) => (acc += t.amount), 0);
+  const total = transactionsPerType.reduce((acc, t) => (acc += Number(t.amount)), 0);
   transactionsPerType.forEach((t) => {
     const categoryIndex = categories.findIndex(
       (c) => c.type === t.category.type
     );
     if (categoryIndex >= 0) categories[categoryIndex].amount = t.amount;
   });
-  const filteredCategories = categories.filter((c) => c.amount > 0);
+  const filteredCategories = categories.filter((c) => Number(c.amount) > 0);
   const chartData = {
     datasets: [
       {

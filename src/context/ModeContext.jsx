@@ -46,10 +46,14 @@ export default function ThemeContextProvider({ children }) {
       return newMode;
     });
   };
+
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   return (
     <ThemeContext.Provider
-      value={{ mode: mode, changeTheme: onChangeModeHandler }}
+      value={{
+        mode: mode,
+        changeTheme: onChangeModeHandler,
+      }}
     >
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
