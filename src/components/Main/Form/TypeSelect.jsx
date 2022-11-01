@@ -18,7 +18,6 @@ const TypeSelect = ({ type, typeError, setFormData, setFormError }) => {
             setFormError((prevFormError) => ({
               ...prevFormError,
               type: true,
-              touched: true,
             }));
             return;
           }
@@ -30,6 +29,7 @@ const TypeSelect = ({ type, typeError, setFormData, setFormError }) => {
           setFormData((prevFormData) => ({
             ...prevFormData,
             type: value,
+            touched: true,
           }));
         }}
       >

@@ -11,7 +11,7 @@ import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
 
 const Details = ({ title }) => {
-  const borderC = title === "Income" ? "secondary.main" : "error.main";
+  const borderC = title === "Income" ? "green" : "error.main";
   const { total, chartData } = useTransactions(title);
   return (
     <div>

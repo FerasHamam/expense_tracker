@@ -17,7 +17,23 @@ import { useExpenseTrackerContext } from "../../../context/Context";
 const TransList = () => {
   const { transactions, deleteTransaction } = useExpenseTrackerContext();
   return (
-    <List dense={false} style={{ maxHeight: 150, overflow: "auto" }}>
+    <List
+      dense={false}
+      style={{ maxHeight: 150, overflow: "auto" }}
+      sx={{
+        "&::-webkit-scrollbar": {
+          width: 5,
+        },
+        "&::-webkit-scrollbar-track": {
+          backgroundColor: "grey",
+          borderRadius: 5,
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "primary.dark",
+          borderRadius: 5,
+        },
+      }}
+    >
       {transactions.map((transaction) => (
         <Slide
           direction="down"
@@ -30,7 +46,7 @@ const TransList = () => {
             <ListItemAvatar>
               <Avatar>
                 <PaidIcon
-                  color={transaction.type === "Income" ? "secondary" : "error"}
+                  color={transaction.type === "Income" ? "success" : "error"}
                 />
               </Avatar>
             </ListItemAvatar>

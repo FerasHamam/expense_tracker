@@ -5,7 +5,7 @@ const formatDate = (d) => {
   const year = date.getFullYear();
   if (day.length < 2) day = `0${day}`;
   if (month.length < 2) month = `0${month}`;
-  return [day, month, year].join("-");
+  return [day, month, year].join("/");
 };
 
 export default formatDate;
