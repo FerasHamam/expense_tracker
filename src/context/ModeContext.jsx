@@ -3,8 +3,10 @@ import { ThemeProvider } from "@mui/system";
 import { useState, useMemo } from "react";
 import { ThemeContext } from "./Context";
 
+const initialMode = JSON.parse(localStorage.getItem("mode")) || "light";
+
 export default function ThemeContextProvider({ children }) {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState(initialMode);
   const getDesignTokens = (mode) => ({
     palette: {
       mode,
@@ -38,7 +40,11 @@ export default function ThemeContextProvider({ children }) {
     },
   });
   const onChangeModeHandler = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+    setMode((prevMode) => {
+      let newMode = prevMode === "light" ? "dark" : "light";
+      localStorage.setItem("mode", JSON.stringify(newMode));
+      return newMode;
+    });
   };
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
   return (

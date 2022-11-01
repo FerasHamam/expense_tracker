@@ -2,6 +2,9 @@ import React, { createContext, useContext } from "react";
 import ExpenseTrackerProvider from "./ExpenseTrackerContext";
 import ThemeContextProvider from "./ModeContext";
 
+
+
+
 export const ExpenseTrackerContext = createContext();
 
 export const useExpenseTrackerContext = () => {

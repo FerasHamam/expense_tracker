@@ -32,7 +32,6 @@ const Form = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [formError, setFormError] = useState(initialFormError);
   const { addTransaction } = useExpenseTrackerContext();
-  console.log(formData);
   const createTransaction = () => {
     let formNotValid =
       formError.amount ||
