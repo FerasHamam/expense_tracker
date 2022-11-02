@@ -11,17 +11,17 @@ const App = () => {
       <CssBaseline />
       <Grid
         container
-        height="110vh"
+        height="105vh"
         sx={{ bgcolor: "background.default" }}
-        spacing={2}
+        spacing={5}
         direction="row"
         alignItems="center"
         justifyContent="center"
       >
-        <Grid item xs={12}>
+        <Grid item xs={13}>
           <Appbar />
         </Grid>
-        <Grid item xs={11} md={6}>
+        <Grid item xs={11} md={4} mt={10}>
           <SpeechlyGuide />
         </Grid>
         <Grid item xs={12}>
@@ -33,13 +33,47 @@ const App = () => {
             spacing={2}
             mb={10}
           >
-            <Grid item xs={10} md={3}>
+            <Grid
+              item
+              xs={10}
+              md={2.5}
+              sx={(theme) => ({
+                [theme.breakpoints.down("sm")]: { display: "none" },
+              })}
+            >
               <Details title="Income" />
             </Grid>
             <Grid item xs={11} md={4}>
               <Main />
             </Grid>
-            <Grid item xs={10} md={3}>
+            <Grid
+              item
+              xs={10}
+              md={3}
+              sx={(theme) => ({
+                [theme.breakpoints.up("sm")]: { display: "none" },
+              })}
+            >
+              <Details title="Income" />
+            </Grid>
+            <Grid
+              item
+              xs={10}
+              md={3}
+              sx={(theme) => ({
+                [theme.breakpoints.up("sm")]: { display: "none" },
+              })}
+            >
+              <Details title="Expense" />
+            </Grid>
+            <Grid
+              item
+              xs={10}
+              md={2.5}
+              sx={(theme) => ({
+                [theme.breakpoints.down("sm")]: { display: "none" },
+              })}
+            >
               <Details title="Expense" />
             </Grid>
           </Grid>

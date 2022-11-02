@@ -13,6 +13,7 @@ import DatePicker from "./DatePicker";
 import AmountField from "./AmountField";
 import TypeSelect from "./TypeSelect";
 import CategorySelect from "./CategorySelect";
+import CustomSnackBar from "../../CustomSnackBar/CustomSnackBar";
 
 const initialFormData = {
   type: "",
@@ -32,6 +33,8 @@ const Form = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [formError, setFormError] = useState(initialFormError);
   const { addTransaction } = useExpenseTrackerContext();
+  const [open, setOpen] = useState(false);
+
   const createTransaction = () => {
     let formNotValid =
       formError.amount ||
@@ -49,7 +52,7 @@ const Form = () => {
       id: uuidv4(),
       date: formatDate(formData.date),
     });
-
+    setOpen(true);
     setFormData(() => initialFormData);
     setFormError(() => initialFormError);
   };
@@ -169,6 +172,7 @@ const Form = () => {
 
   return (
     <div>
+      <CustomSnackBar open={open} setOpen={setOpen} />
       <Grid container direction="row" align="center" spacing={4}>
         <Grid item xs={12}>
           <Typography

@@ -9,12 +9,18 @@ import { PushToTalkButton } from "@speechly/react-ui";
 const Appbar = () => {
   const { mode, changeTheme } = useTheme();
   return (
-    <AppBar position="static" sx={{ bgcolor: "primary.main" }} m={0}>
+    <AppBar position="fixed" sx={{ bgcolor: "primary.main" }} m={0} p={0}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 0.5 }}>
-          Expenses Tracker
+        <Typography
+          variant="h5"
+          component="div"
+          sx={{ flexGrow: 1, width: "20vw" }}
+          fontSize="28px"
+          p={1}
+        >
+          Smart Tracker
         </Typography>
-        <Box sx={{ flexGrow: 0.6 }}>
+        <Box sx={{ flexGrow: 1, width : "17vw" }}>
           <PushToTalkButton placement="center" size="45px" hint="" intro="" />
         </Box>
         <IconButton onClick={changeTheme}>

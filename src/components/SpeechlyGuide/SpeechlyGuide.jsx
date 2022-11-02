@@ -12,7 +12,7 @@ import { guideStatemnets } from "../../constants/constants";
 const SpeechlyGuide = () => {
   const guideComponents = guideStatemnets.map((statement) => (
     <>
-      <Typography align="left" variant="overline">
+      <Typography align="left" variant="overline" key={statement}>
         {statement}
       </Typography>
       <Divider />

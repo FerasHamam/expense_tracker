@@ -15,7 +15,7 @@ const Main = () => {
   const { balance } = useContext(ExpenseTrackerContext);
   return (
     <div>
-      <Card sx={{ backgroundColor: "primary.main", margin: "5vh 3vw" }}>
+      <Card sx={{ backgroundColor: "primary.main", margin: "0 3vw" }}>
         <CardHeader title="Expenses Tracker" subheader="Powered By Speechly" />
         <Divider />
         <CardContent>
