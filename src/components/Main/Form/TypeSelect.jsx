@@ -12,6 +12,9 @@ const TypeSelect = ({ type, typeError, setFormData, setFormError }) => {
         color="secondary"
         value={type}
         error={typeError}
+        MenuProps={{
+          disableScrollLock: true,
+        }}
         onChange={(event) => {
           const value = event.target.value;
           if (value === null) {

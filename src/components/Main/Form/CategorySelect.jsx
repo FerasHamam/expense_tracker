@@ -22,6 +22,9 @@ const CategorySelect = ({
         color="secondary"
         value={category}
         error={categoryError}
+        MenuProps={{
+          disableScrollLock:true,
+        }}
         disabled={type === ""}
         onChange={(event) => {
           const value = event.target.value;
@@ -36,7 +39,7 @@ const CategorySelect = ({
               ...prevFormError,
               category: false,
             }));
-          setFormData((prevFormData) => ({ ...prevFormData, category: value }));
+          setFormData((prevFormData) => ({ ...prevFormData, category: value, touched : true }));
         }}
       >
         {type=== "Income"
