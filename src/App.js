@@ -4,24 +4,22 @@ import Main from "./components/Main/Main";
 import "./App.css";
 import Appbar from "./components/AppBar/Appbar";
 import SpeechlyGuide from "./components/SpeechlyGuide/SpeechlyGuide";
-import { Box } from "@mui/system";
 
 const App = () => {
   return (
     <>
       <CssBaseline />
       <Appbar />
-
       <Grid
         container
         height="100vh"
         sx={{ bgcolor: "background.default" }}
-        spacing={0}
+        spacing={2}
         direction="row"
         alignItems="center"
         justifyContent="center"
       >
-        <Grid item xs={10} md={4} mt={2} mb={2}>
+        <Grid item xs={10} md={5} mt={5} alignSelf="start">
           <SpeechlyGuide />
         </Grid>
         <Grid item xs={12}>
@@ -32,6 +30,7 @@ const App = () => {
             justifyContent="center"
             spacing={2}
             mb={20}
+            alignSelf="start"
           >
             <Grid
               item
@@ -77,9 +76,6 @@ const App = () => {
               <Details title="Expense" />
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <Box xs={{ height: "30vh" }}></Box>
         </Grid>
       </Grid>
     </>
