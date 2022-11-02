@@ -13,15 +13,24 @@ const App = () => {
         container
         height="105vh"
         sx={{ bgcolor: "background.default" }}
-        spacing={5}
+        spacing={0}
         direction="row"
         alignItems="center"
         justifyContent="center"
+        m={0}
       >
         <Grid item xs={13}>
           <Appbar />
         </Grid>
-        <Grid item xs={11} md={4} mt={10}>
+        <Grid
+          item
+          xs={11}
+          md={4}
+          sx={(theme) => ({
+            [theme.breakpoints.down("sm")]: { margin: "15vh 0 2vh 0" },
+            [theme.breakpoints.up("sm")]: { margin: "10vh 0 2vh 0" },
+          })}
+        >
           <SpeechlyGuide />
         </Grid>
         <Grid item xs={12}>
@@ -35,8 +44,7 @@ const App = () => {
           >
             <Grid
               item
-              xs={10}
-              md={2.5}
+              xs={2.5}
               sx={(theme) => ({
                 [theme.breakpoints.down("sm")]: { display: "none" },
               })}
@@ -49,7 +57,6 @@ const App = () => {
             <Grid
               item
               xs={10}
-              md={3}
               sx={(theme) => ({
                 [theme.breakpoints.up("sm")]: { display: "none" },
               })}
@@ -59,7 +66,6 @@ const App = () => {
             <Grid
               item
               xs={10}
-              md={3}
               sx={(theme) => ({
                 [theme.breakpoints.up("sm")]: { display: "none" },
               })}
@@ -68,8 +74,7 @@ const App = () => {
             </Grid>
             <Grid
               item
-              xs={10}
-              md={2.5}
+              xs={2.5}
               sx={(theme) => ({
                 [theme.breakpoints.down("sm")]: { display: "none" },
               })}

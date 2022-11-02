@@ -20,7 +20,7 @@ const Appbar = () => {
         >
           Smart Tracker
         </Typography>
-        <Box sx={{ flexGrow: 1, width : "17vw" }}>
+        <Box sx={{ flexGrow: 1, width: "17vw" }}>
           <PushToTalkButton placement="center" size="45px" hint="" intro="" />
         </Box>
         <IconButton onClick={changeTheme}>

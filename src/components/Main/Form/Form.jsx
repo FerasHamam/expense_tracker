@@ -37,13 +37,14 @@ const Form = () => {
 
   const createTransaction = () => {
     let formNotValid =
-      formError.amount ||
+      formData.type === "" ||
+      formData.category === "" ||
+      formData.amount === "" ||
+      formData.date === null ||
       formError.date ||
-      formError.type ||
-      formError.category ||
-      !formData.touched;
+      formError.amount;
     if (formNotValid) {
-      setFormData((prevFormData) => ({ ...prevFormData, touched: true }));
+      setFormData((prevFormData) => ({ ...prevFormData }));
       return;
     }
     addTransaction({
