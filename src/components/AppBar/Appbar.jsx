@@ -9,7 +9,7 @@ import { PushToTalkButton } from "@speechly/react-ui";
 const Appbar = () => {
   const { mode, changeTheme } = useTheme();
   return (
-    <AppBar position="fixed" sx={{ bgcolor: "primary.main" }} m={0} p={0}>
+    <AppBar position="relative" sx={{ bgcolor: "primary.main" }} m={0} p={0} elevation={6}>
       <Toolbar>
         <Typography
           variant="h5"
