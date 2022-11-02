@@ -1,4 +1,4 @@
-import { colors, Divider, Grid, Typography } from "@mui/material";
+import { colors, Grid, Typography } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -171,10 +171,6 @@ const Form = () => {
     <div>
       <Grid container direction="row" align="center" spacing={4}>
         <Grid item xs={12}>
-          <Typography align="left" variant= "overline">
-            Ex: Add (income | expense) for ($100) in Category (Salary) for (Monday).
-          </Typography>
-          <Divider />
           <Typography
             align="center"
             variant="subtitle2"

@@ -3,6 +3,7 @@ import Details from "./components/Details/Details";
 import Main from "./components/Main/Main";
 import "./App.css";
 import Appbar from "./components/AppBar/Appbar";
+import SpeechlyGuide from "./components/SpeechlyGuide/SpeechlyGuide";
 
 const App = () => {
   return (
@@ -10,12 +11,18 @@ const App = () => {
       <CssBaseline />
       <Grid
         container
-        height="100vh"
+        height="110vh"
         sx={{ bgcolor: "background.default" }}
         spacing={2}
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
       >
         <Grid item xs={12}>
           <Appbar />
+        </Grid>
+        <Grid item xs={11} md={6}>
+          <SpeechlyGuide />
         </Grid>
         <Grid item xs={12}>
           <Grid
@@ -24,7 +31,7 @@ const App = () => {
             alignItems="center"
             justifyContent="center"
             spacing={2}
-            mb={20}
+            mb={10}
           >
             <Grid item xs={10} md={3}>
               <Details title="Income" />

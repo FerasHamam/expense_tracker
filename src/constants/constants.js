@@ -55,3 +55,11 @@ export const resetCategories = () => {
   incomeCategories.forEach((c) => (c.amount = 0));
   expenseCategories.forEach((c) => (c.amount = 0));
 };
+
+export const guideStatemnets = [
+  "Add (income | expense) for ($100) in Category (Salary) for (Monday NEXT MONDY | LAST MONDAY).",
+  "SET (AMOUNT) TO ($200)",
+  "SET (CATEGORY) TO (CAR)",
+  "I MEAN (NEXT TUESDAY)",
+  "(Create | Cancel) Transaction",
+];
