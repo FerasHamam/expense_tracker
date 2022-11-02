@@ -21,15 +21,7 @@ const App = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Grid
-          item
-          xs={10}
-          md={4}
-          sx={(theme) => ({
-            [theme.breakpoints.down("sm")]: { margin: "5vh 0 2vh 0" },
-            [theme.breakpoints.up("sm")]: { margin: "3vh 0 3vh 0" },
-          })}
-        >
+        <Grid item xs={10} md={4} mt={2} mb={2}>
           <SpeechlyGuide />
         </Grid>
         <Grid item xs={12}>
@@ -43,7 +35,8 @@ const App = () => {
           >
             <Grid
               item
-              xs={2.5}
+              xs={10}
+              md={2.5}
               sx={(theme) => ({
                 [theme.breakpoints.down("sm")]: { display: "none" },
               })}
@@ -56,6 +49,7 @@ const App = () => {
             <Grid
               item
               xs={10}
+              md={2.5}
               sx={(theme) => ({
                 [theme.breakpoints.up("sm")]: { display: "none" },
               })}
@@ -65,6 +59,7 @@ const App = () => {
             <Grid
               item
               xs={10}
+              md={2.5}
               sx={(theme) => ({
                 [theme.breakpoints.up("sm")]: { display: "none" },
               })}
@@ -73,7 +68,8 @@ const App = () => {
             </Grid>
             <Grid
               item
-              xs={2.5}
+              xs={10}
+              md={2.5}
               sx={(theme) => ({
                 [theme.breakpoints.down("sm")]: { display: "none" },
               })}
@@ -83,7 +79,7 @@ const App = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Box xs={{ height: "15vh" }}></Box>
+          <Box xs={{ height: "30vh" }}></Box>
         </Grid>
       </Grid>
     </>
