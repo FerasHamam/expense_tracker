@@ -1,6 +1,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
+  <a align="center" href="https://github.com/FerasHamam/expense_tracker">
+    <img src="https://github.com/FerasHamam/expense_tracker/blob/master/public/expense.png" alt="Logo" width="80" height="80">
+  </a>
   <h3 align="center">Smart Expense Tracker</h3>
 
   <p align="center">
