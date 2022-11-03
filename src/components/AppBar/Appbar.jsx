@@ -15,7 +15,6 @@ const Appbar = () => {
           variant="h5"
           component="div"
           sx={{ flexGrow: 1, width: "20vw" }}
-          
           p={1}
         >
           Smart Tracker

@@ -57,9 +57,9 @@ export const resetCategories = () => {
 };
 
 export const guideStatemnets = [
-  "Add (income | expense) for ($100) in Category (Salary) for (Monday NEXT MONDY | LAST MONDAY).",
+  "Add (income | expense) for ($100) in Category (Salary) for (Monday | NEXT MONDAY | LAST MONDAY).",
   "USE dollars after the number or do not specify a currency",
-  "SET (AMOUNT) TO ($200) or Withour set",
+  "SET (AMOUNT) TO ($200) or Without set",
   "SET (CATEGORY) TO (CAR)",
   "I MEAN (NEXT TUESDAY)",
   "(Create | Cancel) Transaction",
