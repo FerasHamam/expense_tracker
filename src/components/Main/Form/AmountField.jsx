@@ -28,7 +28,7 @@ const AmountField = ({ amount, amountError, setFormData, setFormError }) => {
         },
       }}
       onChange={(event) => {
-        let value = event.target.value;
+        let amount = event.target.value;
         if (
           Number.isNaN(Number(amount)) ||
           amount === "" ||
@@ -43,7 +43,7 @@ const AmountField = ({ amount, amountError, setFormData, setFormError }) => {
           }));
         setFormData((prevFormData) => ({
           ...prevFormData,
-          amount: Number(value) || "",
+          amount: Number(amount) || "",
         }));
       }}
     ></TextField>
