@@ -34,7 +34,7 @@ const SpeechlyGuide = () => {
       <AccordionDetails>
         {guideComponents}
         <Typography align="center" variant="overline">
-          you can do much more than that feel free to experiment!
+          you can do much more than that feel free to test it!
         </Typography>
       </AccordionDetails>
     </Accordion>
