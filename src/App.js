@@ -19,7 +19,7 @@ const App = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Grid item xs={10} md={5} mt={5} alignSelf="start">
+        <Grid item xs={11} md={5} mt={5} alignSelf="start">
           <SpeechlyGuide />
         </Grid>
         <Grid item xs={12}>
@@ -34,7 +34,7 @@ const App = () => {
           >
             <Grid
               item
-              xs={10}
+              xs={11}
               md={2.5}
               sx={(theme) => ({
                 [theme.breakpoints.down("sm")]: { display: "none" },
@@ -47,7 +47,7 @@ const App = () => {
             </Grid>
             <Grid
               item
-              xs={10}
+              xs={11}
               md={2.5}
               sx={(theme) => ({
                 [theme.breakpoints.up("sm")]: { display: "none" },
@@ -57,7 +57,7 @@ const App = () => {
             </Grid>
             <Grid
               item
-              xs={10}
+              xs={11}
               md={2.5}
               sx={(theme) => ({
                 [theme.breakpoints.up("sm")]: { display: "none" },
@@ -67,7 +67,7 @@ const App = () => {
             </Grid>
             <Grid
               item
-              xs={10}
+              xs={11}
               md={2.5}
               sx={(theme) => ({
                 [theme.breakpoints.down("sm")]: { display: "none" },

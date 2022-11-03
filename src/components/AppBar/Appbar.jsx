@@ -15,13 +15,13 @@ const Appbar = () => {
           variant="h5"
           component="div"
           sx={{ flexGrow: 1, width: "20vw" }}
-          fontSize="28px"
+          
           p={1}
         >
           Smart Tracker
         </Typography>
         <Box sx={{ flexGrow: 1, width: "17vw" }}>
-          <PushToTalkButton placement="center" size="45px" hint="" intro="" />
+          <PushToTalkButton placement="center" size="40px" hint="" intro="" />
         </Box>
         <IconButton onClick={changeTheme}>
           {mode === "light" ? (
