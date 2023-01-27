@@ -20,21 +20,21 @@ export default function ThemeContextProvider({ children }) {
               main: "#5f31c4",
             },
             background: {
-              default: "#b7afc5",
-              paper: "#b7afc5",
+              default: "#FFFDFA",
+              paper: "#FFFDFA",
             },
           }
         : {
             type: "dark",
             primary: {
-              main: "#493469",
+              main: "#301E67",
             },
             secondary: {
               main: "#b99ff7",
             },
             background: {
-              default: "#333038",
-              paper: "#333038",
+              default: "#03001C",
+              paper: "#03001C",
             },
           }),
     },

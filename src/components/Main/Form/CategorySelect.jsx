@@ -23,7 +23,7 @@ const CategorySelect = ({
         value={category}
         error={categoryError}
         MenuProps={{
-          disableScrollLock:true,
+          disableScrollLock: true,
         }}
         disabled={type === ""}
         onChange={(event) => {
@@ -39,10 +39,14 @@ const CategorySelect = ({
               ...prevFormError,
               category: false,
             }));
-          setFormData((prevFormData) => ({ ...prevFormData, category: value, touched : true }));
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            category: value,
+            touched: true,
+          }));
         }}
       >
-        {type=== "Income"
+        {type === "Income"
           ? incomeCategories.map((category) => (
               <MenuItem key={category.type} value={category}>
                 {category.type}
