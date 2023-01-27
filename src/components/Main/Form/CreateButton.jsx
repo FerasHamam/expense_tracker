@@ -10,6 +10,7 @@ const CreateButton = ({ onCreateTransaction, formData }) => {
       onClick={onCreateTransaction}
       disabled={
         formData.amount.length < 1 ||
+        formData.amount <= 0 ||
         formData.category.length < 1 ||
         formData.date === null ||
         formData.type.length < 1
