@@ -14,7 +14,6 @@ import AmountField from "./AmountField";
 import TypeSelect from "./TypeSelect";
 import CategorySelect from "./CategorySelect";
 import CustomSnackBar from "../../CustomSnackBar/CustomSnackBar";
-import { useCallback } from "react";
 
 const initialFormData = {
   type: "",
@@ -36,7 +35,7 @@ const Form = () => {
   const { addTransaction } = useExpenseTrackerContext();
   const [open, setOpen] = useState(false);
 
-  const createTransaction = useCallback(() => {
+  const createTransaction = () => {
     let formNotValid =
       formData.type === "" ||
       formData.category === "" ||
@@ -57,9 +56,9 @@ const Form = () => {
     setOpen(true);
     setFormData(() => initialFormData);
     setFormError(() => initialFormError);
-  }, [setFormData, setFormError, setOpen, addTransaction, formError, formData]);
+  };
 
-  const speechlyInputForm = useCallback((segment) => {
+  const speechlyInputForm = (segment) => {
     if (segment.intent.intent === "add_expense")
       setFormData((prevFormData) => ({ ...prevFormData, type: "Expense" }));
     else if (segment.intent.intent === "add_income")
@@ -164,13 +163,13 @@ const Form = () => {
           break;
       }
     });
-  },[createTransaction]);
+  };
 
   useEffect(() => {
     if (segment && segment.isFinal) {
       speechlyInputForm(segment);
-    }
-  }, [segment, speechlyInputForm]);
+    } // eslint-disable-next-line
+  }, [segment]);
 
   return (
     <div>
