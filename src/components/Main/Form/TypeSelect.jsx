@@ -1,6 +1,6 @@
 import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 import React from "react";
-import { types } from "../../../constants/constants";
+import { types} from "../../../constants/constants";
 
 const TypeSelect = ({ type, typeError, setFormData, setFormError }) => {
   return (
@@ -21,6 +21,7 @@ const TypeSelect = ({ type, typeError, setFormData, setFormError }) => {
             setFormError((prevFormError) => ({
               ...prevFormError,
               type: true,
+              category : true,
             }));
             return;
           }
@@ -28,10 +29,12 @@ const TypeSelect = ({ type, typeError, setFormData, setFormError }) => {
             setFormError((prevFormError) => ({
               ...prevFormError,
               type: false,
+              category : true,
             }));
           setFormData((prevFormData) => ({
             ...prevFormData,
             type: value,
+            category : "",
             touched: true,
           }));
         }}
