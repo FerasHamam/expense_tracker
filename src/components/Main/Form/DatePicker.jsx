@@ -15,7 +15,13 @@ const DatePicker = ({ dateError, date, setFormData, setFormError }) => {
       helperText={dateError === true ? "Please enter a valid date" : ""}
       onChange={(event) => {
         const value = event.target.value;
-        if (value === null || value.length === 0 || value === "") {
+        let date = new Date(value);
+        if (
+          value === null ||
+          value.length === 0 ||
+          value === "" ||
+          (date instanceof Date && !isNaN(date.valueOf()) && date.getFullYear() < 1970)
+        ) {
           setFormError((prevFormError) => ({
             ...prevFormError,
             date: true,

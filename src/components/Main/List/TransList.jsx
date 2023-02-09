@@ -16,6 +16,10 @@ import { useExpenseTrackerContext } from "../../../context/Context";
 
 const TransList = () => {
   const { transactions, deleteTransaction } = useExpenseTrackerContext();
+  const sortedTransactions = transactions.sort(
+    (a, b) =>
+      new Date(a.date.split("/").reverse().join("-")) - Date.parse(new Date(b.date.split("/").reverse().join("-")))
+  );
   return (
     <List
       dense={false}
@@ -34,7 +38,7 @@ const TransList = () => {
         },
       }}
     >
-      {transactions.map((transaction) => (
+      {sortedTransactions.map((transaction) => (
         <Slide
           direction="down"
           in
